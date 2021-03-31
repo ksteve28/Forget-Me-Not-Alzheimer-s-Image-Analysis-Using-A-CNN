@@ -33,18 +33,11 @@ The test data set includes:
 
 # Exploratory Data Analysis
 
-Although in individual photographs the atrophy in the brain is apparent in Moderate Dementia for EDA purposes I wanted to average out the data to make it more interpretable. 
-
-I imported the images of each subset and resized the images, greyscaled and averaged the pixels. 
-Although the images are all grey
-
-
-
-
+Now that we have an understanding of what the data exactly is. I would like to take averages of the data subsets to be able to distinguish if there are key differences of the means. These images were resized from their original 206x178 to 64x64. 
 ![Averages_of_Brains ](images/averages_of_brains.jpg)
+I analyzed multiple filters through skimage with the best filter being a canny filter to show the most significant difference. The filter thresholds I used to achieve this image was sigma=2, low_threshold=.1, high_threshold=.4.
 
-
-
+![Canny Filters ](images/canny_filtersjpg.png)
 
 
 # Machine Learning Analysis
