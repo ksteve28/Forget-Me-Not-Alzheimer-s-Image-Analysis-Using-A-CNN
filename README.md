@@ -29,19 +29,21 @@ The test data set includes:
 * Non-Demented - 640 images
 * Moderate Demented - 12 images
 
+![Looking at the Data ](images/the_data.jpg)
+
 # Exploratory Data Analysis
 
+Although in individual photographs the atrophy in the brain is apparent in Moderate Dementia for EDA purposes I wanted to average out the data to make it more interpretable. 
+
+I imported the images of each subset and resized the images, greyscaled and averaged the pixels. 
 Although the images are all grey
 
-![Non Demented ](Alz_data/train/NonDemented/nonDem10.jpg)
 
-![Non Demented ](Alz_data/train/ModerateDemented/moderateDem10.jpg)
 
 
 ![Averages_of_Brains ](images/averages_of_brains.jpg)
 
 
-<img src="Alz_data/train/NonDemented/nonDem10.jpg)" height='700'> 
 
 
 

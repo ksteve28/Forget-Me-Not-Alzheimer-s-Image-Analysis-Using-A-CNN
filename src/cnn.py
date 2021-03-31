@@ -4,6 +4,9 @@ import tensorflow as transform
 from tensorflow.keras import datasets, layers, models
 import matplotlib.pyplot as plt 
 
+AUTOTUNE = tf.data.experimental.AUTOTUNE 
+
+
 #Create dataset and define parameters
 
 image_size = [176, 208]
@@ -16,15 +19,14 @@ def define_parameters(image_size, batch_size, epochs):
     epochs = epochs
 
 #Initiate dataset
-def initialize_dataset(type, path, subset, seed, )
-train_data = tf.keras.preprocessing.image_dataset_from_directory(
-    '../Alzheimer_s Dataset/train/',
+def init_data(name, path, subset, seed, image_size, batch_size):
+    name = tf.keras.preprocessing.image_dataset_from_directory(
+    path,
     validation_split=0.2,
-    subset="training",
-    seed=123,
+    subset=subset,
+    seed=seed,
     image_size=image_size,
-    batch_size=batch_size,
-)
+    batch_size=batch_size)
 
 
 val_data = tf.keras.preprocessing.image_dataset_from_directory(
@@ -58,11 +60,23 @@ val_data = val_data.cache().prefetch(buffer_size=AUTOTUNE)
 Drop out is one of the most popular techniques to reduce overfitting in deep learning.
 
 """
-def conv(filters):
+def conv_block(filters):
     block = tf.keras.Sequential([
-        layers.SeparableConv2D(filters, 3, activation='relu', padding
-    ==)
+        tf.keras.layers.SeparableConv2D(filters, 3, activation='relu', padding='same'),
+        tf.keras.layers.SeparableConv2D(filters, 3, activation='relu', padding='same'),
+        tf.keras.layers.BatchNormalization(),
+        tf.keras.layers.MaxPool2D()
+    ]
+    )
+    
+    return block
+
+
+def dense_block(units, dropout_rate):
+    block = tf.keras.Sequential([
+        tf.keras.layers.Dense(units, activation='relu'),
+        tf.keras.layers.BatchNormalization(),
+        tf.keras.layers.Dropout(dropout_rate)
     ])
-
-
-
+    
+    return block
