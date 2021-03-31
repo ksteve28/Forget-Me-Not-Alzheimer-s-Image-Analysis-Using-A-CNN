@@ -29,4 +29,20 @@ The test data set includes:
 * Non-Demented - 640 images
 * Moderate Demented - 12 images
 
+# Exploratory Data Analysis
+
+Although the images are all grey
+
+![Non Demented ](Alz_data/train/NonDemented/nonDem10.jpg)
+
+![Non Demented ](Alz_data/train/ModerateDemented/moderateDem10.jpg)
+
+
+![Averages_of_Brains ](images/averages_of_brains.jpg)
+
+
+<img src="Alz_data/train/NonDemented/nonDem10.jpg)" height='700'> 
+
+
+
 # Machine Learning Analysis
