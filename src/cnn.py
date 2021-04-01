@@ -18,17 +18,6 @@ def define_parameters(image_size, batch_size, epochs):
     batch_size = batch_size
     epochs = epochs
 
-#Initiate dataset
-def init_data(name, path, subset, seed, image_size, batch_size):
-    name = tf.keras.preprocessing.image_dataset_from_directory(
-    path,
-    validation_split=0.2,
-    subset=subset,
-    seed=seed,
-    image_size=image_size,
-    batch_size=batch_size)
-
-
 val_data = tf.keras.preprocessing.image_dataset_from_directory(
     '../Alzheimer_s Dataset/train',
         validation_split=0.2,
@@ -48,12 +37,6 @@ val_data.class_names = class_names
 num_classes = len(class_names)
 
 
-def one_hot(image, label):
-    label = tf.one_hot(label, num_classes)
-    return image, label
-
-train_data = train_data.cache().prefetch(buffer_size=AUTOTUNE)
-val_data = val_data.cache().prefetch(buffer_size=AUTOTUNE)
 
 
 """
@@ -66,8 +49,7 @@ def conv_block(filters):
         tf.keras.layers.SeparableConv2D(filters, 3, activation='relu', padding='same'),
         tf.keras.layers.BatchNormalization(),
         tf.keras.layers.MaxPool2D()
-    ]
-    )
+    ])
     
     return block
 
@@ -80,3 +62,32 @@ def dense_block(units, dropout_rate):
     ])
     
     return block
+
+
+
+    if __name__ == "__main__":
+
+        val_data = tf.keras.preprocessing.image_dataset_from_directory(
+        '../Alzheimer_s Dataset/train',
+        validation_split=0.2,
+        subset="validation",
+        seed=123,
+        image_size=image_size,
+        batch_size=batch_size,
+        )
+
+
+model = build_model()
+
+METRICS = [
+        'accuracy',
+        tf.keras.metrics.Precision(name='precision'),
+        tf.keras.metrics.Recall(name='recall'), 
+        tf.keras.metrics.FalseNegatives()
+    ]
+    
+model.compile(
+        optimizer='adam',
+        loss=tf.losses.BinaryCrossentropy(),
+        metrics=METRICS
+    )
