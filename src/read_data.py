@@ -1,15 +1,17 @@
 
 import os
 import glob
+import cv2
 import numpy as np
+from PIL import Image
+from skimage import data
 from sklearn.cluster import KMeans
 from skimage import io, color, filters, feature, restoration
+from skimage.transform import resize, rotate
 
 
 #Used to import the images in at once and turns into an array.
-def files_to_array(name, filepath):
-    """Takes the filepath of images and imports them. Output is into a numpy array """
-    name = glob.glob(filepath)
+def array(filepath):
     x = np.array([np.array(Image.open(fname)) for fname in filepath])
     return x
 
@@ -54,7 +56,17 @@ def graph_averages(imgs):
     plt.savefig('../images/averages_of_brains.jpg')
     plt.show()
 
-    
+
+def contrast_mean(norm_mean, mod_mean):
+    contrast_mean = norm_mean - mod_mean
+    plt.imshow(contrast_mean, cmap='bwr')
+    plt.title(f'Difference Between a Normal Brain & Moderate Dementia')
+    plt.axis('off')
+    plt.savefig('../images/contrast_mean')
+    plt.show()
+
+
+
 #turn into a class
 
 def make_gray(img):
@@ -78,19 +90,26 @@ def restoration_cham(img):
 # clustering 
 
 def cluster(image, n_clusters, random_state):
-    kmeans = KMeans(n_clusters=70, random_state=0).fit(image)
+    kmeans = KMeans(n_clusters=n_clusters, random_state=random_state).fit(image)
     clusters = dem2show = kmeans.cluster_centers_[kmeans.labels_]
     final = clusters.reshape(image.shape[0], image.shape[1])
     return io.imshow(final)
 
 
 if __name__ == "__main__":
-
-    name = ['Non-Demented','Moderate']
-    filepath = ['../Alzheimer_s Dataset/train/NonDemented/*.jpg', 
-        '../Alzheimer_s Dataset/train/ModerateDemented/*.jpg']
-
+    #import filepath
+    non_demented = glob.glob('../Alz_data/train/NonDemented/*.jpg')
+    demented = glob.glob('../Alz_data/train/ModerateDemented/*.jpg')    
     
+    non_dem = resize_gray_mat(non_demented)
+    mod_dem = resize_gray_mat(demented)
+
+
+
+
+
+
+
     cluster(x, 100, 0)
 
 
