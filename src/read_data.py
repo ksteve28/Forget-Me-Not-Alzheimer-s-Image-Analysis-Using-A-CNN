@@ -57,7 +57,9 @@ def graph_averages(imgs):
     plt.show()
 
 
+
 def contrast_mean(norm_mean, mod_mean):
+    #compares the difference between the normal mean and moderate mean
     contrast_mean = norm_mean - mod_mean
     plt.imshow(contrast_mean, cmap='bwr')
     plt.title(f'Difference Between a Normal Brain & Moderate Dementia')
@@ -66,8 +68,6 @@ def contrast_mean(norm_mean, mod_mean):
     plt.show()
 
 
-
-#turn into a class
 
 def make_gray(img):
     img = color.rgb2gray(img)
@@ -104,13 +104,6 @@ if __name__ == "__main__":
     non_dem = resize_gray_mat(non_demented)
     mod_dem = resize_gray_mat(demented)
 
-
-
-
-
-
-
-    cluster(x, 100, 0)
 
 
 

@@ -161,10 +161,11 @@ def graph_false_negs():
 
 
 
-    if __name__ == "__main__":
+ if __name__ == "__main__":
 
 
-        val_data = tf.keras.preprocessing.image_dataset_from_directory(
+
+    val_data = tf.keras.preprocessing.image_dataset_from_directory(
                 '../Alzheimer_s Dataset/train',
                 validation_split=0.2,
                 subset="validation",
@@ -172,7 +173,7 @@ def graph_false_negs():
                 image_size=image_size,
                 batch_size=batch_size,
                 )
-        train_data = tf.keras.preprocessing.image_dataset_from_directory(
+    train_data = tf.keras.preprocessing.image_dataset_from_directory(
                 '../Alz_data/train/',
             validation_split=0.2,
             subset="training",
@@ -183,7 +184,7 @@ def graph_false_negs():
 
 
 
-        test_data = tf.keras.preprocessing.image_dataset_from_directory(
+    test_data = tf.keras.preprocessing.image_dataset_from_directory(
                 '../Alz_data/test/',
                 mage_size=image_size,
                 batch_size=batch_size,
@@ -192,30 +193,30 @@ def graph_false_negs():
 
 
 
-        model = build_model()
+    model = build_model()
 
-        METRICS = [
+    METRICS = [
             'accuracy',
             tf.keras.metrics.Precision(name='precision'),
             tf.keras.metrics.Recall(name='recall'), 
             tf.keras.metrics.FalseNegatives()
             ]
     
-        model.compile(
+    model.compile(
             optimizer='adam',
             loss=tf.losses.BinaryCrossentropy(),
             metrics=METRICS
             )
         
-        history = model.fit(
+    history = model.fit(
                     train_data,
                 validation_data=val_data,
                 epochs=epoch
                 )
 
-        test_loss, test_acc, test_precision, test_recall, test_false = model.evaluate(test_data)
+    test_loss, test_acc, test_precision, test_recall, test_false = model.evaluate(test_data)
 
-        print('\nTest accuracy: {:.2f}'.format(test_acc),
+    print('\nTest accuracy: {:.2f}'.format(test_acc),
                 '\nTest recall: {:.2f}'.format(test_recall),
                 '\nTest precision: {:.2f}'.format(test_precision),
                 '\nTest False Negatives: {:.2f}'.format(test_false),

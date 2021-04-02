@@ -75,9 +75,7 @@ It is recommended to use smaller image sizes for computational efficiency as wel
 
 ## **Model Selection**
 Prior to my layers I rescaled the data using a "Rescaling 1/255" so the data will be between 0 and 1.
-Next, I used four convolutional blocks comprised of convolutional layer, max-pooling, and batch normalization. Next, I placed a flatten layer and followed it by three fully connected layers. It between the Dense layers was a dropout to reduce over-fitting. 
-
-I stayed consistent with Relu as my activation function until my last activation function where I used Sigmoid since this is a binary classification. 
+Next, I used four convolutional blocks comprised of convolutional layer, max-pooling, and batch normalization. Next, I placed a flatten layer and followed it by three fully connected layers. It between the Dense layers was a dropout to reduce over-fitting. I stayed consistent with Relu as my activation function until my last activation function where I used Sigmoid since this is a binary classification. 
 
 ### **Hyperparameters**
 * Optimizer: Adam 
