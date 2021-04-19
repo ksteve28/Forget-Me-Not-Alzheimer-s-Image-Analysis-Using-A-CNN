@@ -42,7 +42,7 @@ The test data set includes:
 Now that we have an understanding of what the data exactly is I would like to take averages of the data subsets in order to distinguish if there are key differences of the means. These images were resized from their original 206x178 to 64x64. 
 <br>
 
-![Averages_of_Brains ](images/averages_of_brains.jpg)
+![Averages_of_Brains ](images/4imgs_data.jpg)
 
 <br> 
 

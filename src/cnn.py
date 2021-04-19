@@ -221,3 +221,28 @@ def graph_false_negs():
                 '\nTest precision: {:.2f}'.format(test_precision),
                 '\nTest False Negatives: {:.2f}'.format(test_false),
                 '\nTest loss: {:.2f}'.format(test_loss))
+
+
+
+
+                train_datagen = ImageDataGenerator(
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True)
+test_datagen = ImageDataGenerator()
+train_generator = train_datagen.flow_from_directory(
+        '../Alz_data/train',
+        target_size=(64,64),
+        batch_size=32,
+        class_mode='categorical')
+validation_generator = test_datagen.flow_from_directory(
+        '../Alz_data/train',
+        target_size=(64,64),
+        batch_size=32,
+        class_mode='categorical')
+
+        img_hist = model.fit(
+        train_generator,
+        validation_data=validation_generator,
+        callbacks=[early_stopping_cb, lr_scheduler], 
+        epochs=epoch)

@@ -4,6 +4,7 @@ import glob
 import cv2
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
 from skimage import data
 from sklearn.cluster import KMeans
 from skimage import io, color, filters, feature, restoration
@@ -39,51 +40,65 @@ def find_mean_img(full_mat, title):
     return mean_img
 
 def graph_averages(imgs):    
-    fig, axs = plt.subplots(1,2, figsize=(10,10))
+    fig, axs = plt.subplots(2,2, figsize=(10,10), dpi=150)
     for idx, ax in enumerate(axs.flatten()):
         ax.imshow(imgs[idx], cmap="gray")
-    axs[0].set_title('Moderate Demented Average')
-    axs[1].set_title('Non-Demented Average')
-    axs[0].tick_params(left=False,
+    axs[0,0].set_title('Non-Demented Average', fontsize=16)
+    axs[0,1].set_title('Very Mild Demented Average', fontsize=16)
+    axs[1,0].set_title('Mild Demented Average', fontsize=16)
+    axs[1,1].set_title('Moderate Demented Average', fontsize=16)
+    axs[0,0].tick_params(left=False,
                 bottom=False,
                 labelleft=False,
                 labelbottom=False)
-    axs[1].tick_params(left=False,
+    axs[0,1].tick_params(left=False,
+                bottom=False,
+                labelleft=False,
+                labelbottom=False)
+    axs[1,0].tick_params(left=False,
+                bottom=False,
+                labelleft=False,
+                labelbottom=False)
+    axs[1,1].tick_params(left=False,
                 bottom=False,
                 labelleft=False,
                 labelbottom=False)
     plt.tight_layout()
-    plt.savefig('../images/averages_of_brains.jpg')
+    plt.savefig('../images/4imgs_data.jpg')
     plt.show()
 
 
 
 def contrast_mean(norm_mean, mod_mean):
-    #compares the difference between the normal mean and moderate mean
-    contrast_mean = norm_mean - mod_mean
-    plt.imshow(contrast_mean, cmap='bwr')
-    plt.title(f'Difference Between a Normal Brain & Moderate Dementia')
-    plt.axis('off')
-    plt.savefig('../images/contrast_mean')
-    plt.show()
+    # #compares the difference between the normal mean and moderate mean
+    # contrast_mean = norm_mean - mod_mean
+    # plt.imshow(contrast_mean, cmap='bwr')
+    # plt.title(f'Difference Between a Normal Brain & Moderate Dementia')
+    # plt.axis('off')
+    # plt.savefig('../images/contrast_mean')
+    # plt.show()
 
 
+    class Filters:
+        pass 
+    # def __init__(self, img):
+    #     self.img = img
 
-def make_gray(img):
-    img = color.rgb2gray(img)
-    return img   
+    # def make_gray(self):
+    #     g_img = color.rgb2gray(self.img)
+    #     return g_img   
 
-def apply_sobel(img):
-    return filters.sobel(img)
+    # def apply_sobel(self):
+    #     return filters.sobel(self.img)
 
-def apply_canny(img):
-    return feature.canny(img, sigma=2)
+    # def apply_canny(self):
+    #     return feature.canny(self.img, sigma=2)
 
-def restoration_bi(img):
-    return restoration.denoise_bilateral(img, sigma_spatial=.92)
+    # def restoration_bi(self):
+    #     return restoration.denoise_bilateral(self.img, sigma_spatial=.92)
 
-def restoration_cham(img):
-    return restoration.denoise_tv_chambolle(img, weight=.12)
+    # def restoration_cham(self):
+    #     return restoration.denoise_tv_chambolle(self.img, weight=.12)
 
 
 
@@ -103,6 +118,8 @@ if __name__ == "__main__":
     
     non_dem = resize_gray_mat(non_demented)
     mod_dem = resize_gray_mat(demented)
+
+    find_mean_img(non_dem, "Non Demented")
 
 
 
