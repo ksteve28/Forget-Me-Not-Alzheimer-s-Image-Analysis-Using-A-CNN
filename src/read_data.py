@@ -39,7 +39,11 @@ def find_mean_img(full_mat, title):
     plt.show()
     return mean_img
 
+
 def graph_averages(imgs):    
+    """ graph set to take 4 images and graph what you're depicting. Could be used for average data 
+    or showing different filters.
+    """
     fig, axs = plt.subplots(2,2, figsize=(10,10), dpi=150)
     for idx, ax in enumerate(axs.flatten()):
         ax.imshow(imgs[idx], cmap="gray")
@@ -69,40 +73,36 @@ def graph_averages(imgs):
 
 
 
-def contrast_mean(norm_mean, mod_mean):
-    # #compares the difference between the normal mean and moderate mean
-    # contrast_mean = norm_mean - mod_mean
-    # plt.imshow(contrast_mean, cmap='bwr')
-    # plt.title(f'Difference Between a Normal Brain & Moderate Dementia')
-    # plt.axis('off')
-    # plt.savefig('../images/contrast_mean')
-    # plt.show()
+def contrast_mean(mean1, mean2):
+    #compares the contrast difference between two classes
+    contrast_mean = mean1 - mean2
+    plt.imshow(contrast_mean, cmap='bwr')
+    plt.title(f'Difference Between a Normal Brain & Moderate Dementia')
+    plt.axis('off')
+    plt.savefig('../images/contrast_mean')
+    plt.show()
 
 
-    class Filters:
-        pass 
-    # def __init__(self, img):
-    #     self.img = img
+#filters for image data
+    def make_gray(self):
+        g_img = color.rgb2gray(self.img)
+        return g_img   
 
-    # def make_gray(self):
-    #     g_img = color.rgb2gray(self.img)
-    #     return g_img   
+    def apply_sobel(self):
+        return filters.sobel(self.img)
 
-    # def apply_sobel(self):
-    #     return filters.sobel(self.img)
+    def apply_canny(self):
+        return feature.canny(self.img, sigma=2)
 
-    # def apply_canny(self):
-    #     return feature.canny(self.img, sigma=2)
+    def restoration_bi(self):
+        return restoration.denoise_bilateral(self.img, sigma_spatial=.92)
 
-    # def restoration_bi(self):
-    #     return restoration.denoise_bilateral(self.img, sigma_spatial=.92)
-
-    # def restoration_cham(self):
-    #     return restoration.denoise_tv_chambolle(self.img, weight=.12)
+    def restoration_cham(self):
+        return restoration.denoise_tv_chambolle(self.img, weight=.12)
 
 
 
-# clustering 
+# code belong for k means clustering of data
 
 def cluster(image, n_clusters, random_state):
     kmeans = KMeans(n_clusters=n_clusters, random_state=random_state).fit(image)
