@@ -13,8 +13,8 @@ from skimage.transform import resize, rotate
 
 #Used to import the images in at once and turns into an array.
 def array(filepath):
-    x = np.array([np.array(Image.open(fname)) for fname in filepath])
-    return x
+    arr = np.array([np.array(Image.open(fname)) for fname in filepath])
+    return arr
 
 
 def avg_pixels(data):
@@ -84,21 +84,22 @@ def contrast_mean(mean1, mean2):
 
 
 #filters for image data
-    def make_gray(self):
-        g_img = color.rgb2gray(self.img)
-        return g_img   
 
-    def apply_sobel(self):
-        return filters.sobel(self.img)
+def make_gray(img)):
+    g_img = color.rgb2gray(img)
+    return g_img   
 
-    def apply_canny(self):
-        return feature.canny(self.img, sigma=2)
+def apply_sobel(img):
+    return filters.sobel(img)
 
-    def restoration_bi(self):
-        return restoration.denoise_bilateral(self.img, sigma_spatial=.92)
+def apply_canny(img):
+    return feature.canny(img, sigma=2)
 
-    def restoration_cham(self):
-        return restoration.denoise_tv_chambolle(self.img, weight=.12)
+def restoration_bi(img):
+    return restoration.denoise_bilateral(img, sigma_spatial=.92)
+
+def restoration_cham(img):
+    return restoration.denoise_tv_chambolle(img, weight=.12)
 
 
 
